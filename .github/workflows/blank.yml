@@ -21,7 +21,7 @@ jobs:
     - name: Check User Permission
       uses: actions-cool/check-user-permission@v2.0.1
       with:
-        username: github.actor
+        username: ${{ github.actor }}
         require: developer
 
     - name: Rebase and deploy
