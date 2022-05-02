@@ -29,11 +29,10 @@ jobs:
       id: rebase
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        TARGET_BRANCH: dev
         SHA_COMMIT: ${{ github.sha }}
         AUTHOR: ${{ github.actor }}
       run: |
-        TARGET_ENV=$(cat ${{ github.event.comment.body }} | cut -d ' ' -f1)
+        TARGET_BRANCH=$(cat ${{ github.event.comment.body }} | cut -d ' ' -f1)
         chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
         echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
     - name: Comment on PR
