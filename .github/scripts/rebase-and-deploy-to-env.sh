@@ -17,7 +17,7 @@ cd $UPSTREAM_REPO_LOCATION
 git checkout -b $TARGET_BRANCH > /dev/null 2>&1
 
 # If the commit is already on TARGET_BRANCH, the feature has been already merged and deployed.
-if [ $(git branch --contains $SHA_COMMIT | grep -c $TARGET_BRANCH) -ne 0 ]; then
+if [ $(git branch --contains $SHA_COMMIT | grep -c "$TARGET_BRANCH") -ne 0 ]; then
   echo "$SHA_COMMIT is already on $TARGET_BRANCH branch!"
 else
   git rebase $SHA_COMMIT > /dev/null 2>&1
