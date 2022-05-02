@@ -6,7 +6,7 @@
 
 ORIGINAL__DIR=$PWD
 UPSTREAM_REPO_LOCATION=/tmp/upstream
-git clone https://github.com/$AUTHOR:$GH_TOKEN@github.com/5733d9e2be6485d52ffa08870cabdee0/sandbox.git $UPSTREAM_REPO_LOCATION > /dev/null 2>&1
+git clone https://github.com/$AUTHOR:$GH_TOKEN@github.com/5733d9e2be6485d52ffa08870cabdee0/sandbox.git $UPSTREAM_REPO_LOCATION # > /dev/null 2>&1
 cd $UPSTREAM_REPO_LOCATION
 git checkout -b $TARGET_BRANCH > /dev/null 2>&1
 
