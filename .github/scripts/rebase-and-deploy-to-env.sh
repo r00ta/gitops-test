@@ -6,8 +6,8 @@
 
 allowed_branch_values=("dev" "stable")
 
-if [[ ! "${allowed_branch_values[*]}" =~ "$TARGET_BRANCH" ]]; then
-    echo "$TARGET_BRANCH is not a valid choice. Valid choices are dev and stable".
+if ! grep -q "$TARGET_BRANCH" <<< "${allowed_branch_values[@]}"; then
+    echo "$TARGET_BRANCH is not a valid choice. Valid choices are dev and stable."
     exit 0
 fi
 
