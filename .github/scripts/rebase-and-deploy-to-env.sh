@@ -5,7 +5,7 @@
 # GITHUB_TOKEN: The token
 
 if [[ "$TARGET_BRANCH" =~ ^(dev|stable)$ ]]; then
-    echo "$TARGET_BRANCH is not a valid choice. Valid choices are `dev` and `stable`".
+    echo "$TARGET_BRANCH is not a valid choice. Valid choices are dev and stable".
     exit 0
 fi
 
