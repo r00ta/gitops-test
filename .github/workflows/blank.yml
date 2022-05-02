@@ -25,6 +25,7 @@ jobs:
         require: developer
 
     - name: Rebase and deploy
+      id: rebase
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         TARGET_BRANCH: dev
@@ -32,5 +33,15 @@ jobs:
         AUTHOR: ${{ github.actor }}
       run: |
         chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
-        ./.github/scripts/rebase-and-deploy-to-env.sh
-
+        echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
+    - name: Comment on PR
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: ${{ steps.rebase.outputs.output }}
+          })
