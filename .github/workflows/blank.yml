@@ -10,10 +10,10 @@ jobs:
 
     # If the pull request has been merged
     # if: github.event_name == 'issue_comment' && github.event.pull_request.merged == 'true'
-
+    if: contains(github.event.comment.body, '/deploy')
+    
     runs-on: ubuntu-latest
     permissions: write-all
-
 
     steps:
     - name: Checkout repository
@@ -33,6 +33,7 @@ jobs:
         SHA_COMMIT: ${{ github.sha }}
         AUTHOR: ${{ github.actor }}
       run: |
+        TARGET_ENV=$(cat ${{ github.event.comment.body }} | cut -d ' ' -f1)
         chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
         echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
     - name: Comment on PR
