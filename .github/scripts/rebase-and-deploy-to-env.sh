@@ -2,11 +2,11 @@
 # TARGET_BRANCH: dev, stable
 # SHA_COMMIT: the sha of the commit to rebase
 # AUTHOR: The user
-# GH_TOKEN: The token
+# GITHUB_TOKEN: The token
 
 ORIGINAL__DIR=$PWD
 UPSTREAM_REPO_LOCATION=/tmp/upstream
-git clone https://github.com/$AUTHOR:$GH_TOKEN@github.com/5733d9e2be6485d52ffa08870cabdee0/sandbox.git $UPSTREAM_REPO_LOCATION # > /dev/null 2>&1
+git clone https://$AUTHOR:$GITHUB_TOKEN@github.com/5733d9e2be6485d52ffa08870cabdee0/sandbox.git $UPSTREAM_REPO_LOCATION # > /dev/null 2>&1
 cd $UPSTREAM_REPO_LOCATION
 git checkout -b $TARGET_BRANCH > /dev/null 2>&1
 
