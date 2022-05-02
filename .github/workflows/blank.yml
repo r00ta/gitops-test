@@ -32,7 +32,7 @@ jobs:
         SHA_COMMIT: ${{ github.sha }}
         AUTHOR: ${{ github.actor }}
       run: |
-        TARGET_BRANCH=$(cat ${{ github.event.comment.body }} | cut -d ' ' -f1)
+        TARGET_BRANCH=$(cat ${{ github.event.comment.body }} | cut -d ' ' -f2)
         chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
         echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
     - name: Comment on PR
