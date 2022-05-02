@@ -26,5 +26,6 @@ jobs:
 
     - name: Rebase and deploy
       run: |
+        chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
         ./.github/scripts/rebase-and-deploy-to-env.sh
 
