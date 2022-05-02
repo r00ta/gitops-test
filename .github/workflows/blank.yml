@@ -25,6 +25,11 @@ jobs:
         require: developer
 
     - name: Rebase and deploy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        TARGET_BRANCH: dev
+        SHA_COMMIT: ${{ github.sha }}
+        AUTHOR: ${{ github.actor }}
       run: |
         chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
         ./.github/scripts/rebase-and-deploy-to-env.sh
