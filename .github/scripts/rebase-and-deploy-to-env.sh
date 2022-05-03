@@ -18,9 +18,7 @@ cd $UPSTREAM_REPO_LOCATION
 
 # If the deployment targets `stable`, then the feature must be on dev first.
 if [[ "$TARGET_BRANCH" == "stable" ]]; then
-  echo "IN"
-  if [ $(git branch --contains $SHA_COMMIT | grep -c "dev") -ne 0 ]; then
-    echo "SCI"
+  if [ $(git branch --contains $SHA_COMMIT | grep -c "dev") -eq 0 ]; then
     printf "\U274C In order to deploy to stable branch the feature must be on dev branch first. Please deploy it there first, check that everything is running fine and then promote it to stable."
     exit 0
   fi
