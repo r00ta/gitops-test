@@ -15,6 +15,7 @@ fi
 UPSTREAM_REPO_LOCATION=/tmp/upstream
 git clone https://$AUTHOR:$GITHUB_TOKEN@github.com/r00ta/gitops-test.git $UPSTREAM_REPO_LOCATION > /dev/null 2>&1
 # peek branches 
+git fetch --all
 git checkout --track origin/dev
 git checkout --track origin/stable
 git checkout main
