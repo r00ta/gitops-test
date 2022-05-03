@@ -38,8 +38,6 @@ jobs:
           } catch (err) {
             core.setFailed(`Request failed with error ${err}`)
           }
-    - name: Show PR context
-      run: echo "${{ steps.get-pr.outputs.result }}"
     - name: Check User Permission
       uses: actions-cool/check-user-permission@v2.0.1
       with:
@@ -50,11 +48,10 @@ jobs:
       id: rebase
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#         SHA_COMMIT: ${{ github.sha }}
         AUTHOR: ${{ github.actor }}
       run: |
         export TARGET_BRANCH=$(printf "${{ github.event.comment.body }}" | cut -d ' ' -f2)
-        export SHA_COMMIT="${{ fromJSON(steps.get-pr.outputs.result).head.sha }}"
+        export SHA_COMMIT="${{ fromJSON(steps.get-pr.outputs.result).merge_commit_sha }}"
         chmod +x ./.github/scripts/rebase-and-deploy-to-env.sh
         echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
     - name: Comment on PR
