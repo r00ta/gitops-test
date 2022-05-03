@@ -18,8 +18,6 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
-      with:
-        ref: refs/heads/${{ github.head_ref }} 
     - name: Show GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
