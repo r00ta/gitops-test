@@ -18,6 +18,11 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v2
+    - name: Check User Permission
+      uses: actions-cool/check-user-permission@v2.0.1
+      with:
+        username: ${{ github.actor }}
+        require: write
     - name: Show GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
@@ -38,12 +43,6 @@ jobs:
           } catch (err) {
             core.setFailed(`Request failed with error ${err}`)
           }
-    - name: Check User Permission
-      uses: actions-cool/check-user-permission@v2.0.1
-      with:
-        username: ${{ github.actor }}
-        require: developer
-
     - name: Rebase and deploy
       id: rebase
       env:
