@@ -34,7 +34,7 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '\U274C You do not have the rights to perform this operation'
+            body: 'You do not have the rights to perform this operation'
           })
     - uses: actions/github-script@v3
       if: steps.checkUser.outputs.require-result == 'true'
