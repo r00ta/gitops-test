@@ -39,7 +39,7 @@ jobs:
             core.setFailed(`Request failed with error ${err}`)
           }
     - name: Show PR context
-      run: echo "${{ fromJSON(steps.get-pr.outputs.result) }}"
+      run: echo "${{ steps.get-pr.outputs.result }}"
     - name: Check User Permission
       uses: actions-cool/check-user-permission@v2.0.1
       with:
