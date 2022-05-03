@@ -23,11 +23,20 @@ jobs:
       with:
         username: ${{ github.actor }}
         require: write
-    - name: Show GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
+    - name: Comment on PR if the user has no permission to deploy
+      uses: actions/github-script@v3
+      if: steps.checkUser.outputs.check-result == 'false'
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: '\U2705 You don't have the rights to perform this operation'
+          })
     - uses: actions/github-script@v3
+      if: steps.checkUser.outputs.check-result == 'true'
       id: get-pr
       with:
         script: |
@@ -44,6 +53,7 @@ jobs:
             core.setFailed(`Request failed with error ${err}`)
           }
     - name: Rebase and deploy
+      if: steps.checkUser.outputs.check-result == 'true'
       id: rebase
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -55,6 +65,7 @@ jobs:
         echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
     - name: Comment on PR
       uses: actions/github-script@v3
+      if: steps.checkUser.outputs.check-result == 'true'
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
