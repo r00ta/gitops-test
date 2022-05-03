@@ -24,10 +24,6 @@ jobs:
       with:
         require: 'write'
         check-contributor: true
-    - run: echo "user-permission = ${{ steps.checkUser.outputs.user-permission }}"
-    - run: echo "require-result = ${{ steps.checkUser.outputs.require-result }}"
-    - run: echo "check-result = ${{ steps.checkUser.outputs.check-result }}"
-    
     - name: Comment on PR if the user has no permission to deploy
       if: steps.checkUser.outputs.require-result == 'false'
       uses: actions/github-script@v3
@@ -38,7 +34,7 @@ jobs:
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: '\U2705 You don't have the rights to perform this operation'
+            body: 'You don't have the rights to perform this operation'
           })
     - uses: actions/github-script@v3
       if: steps.checkUser.outputs.require-result == 'true'
