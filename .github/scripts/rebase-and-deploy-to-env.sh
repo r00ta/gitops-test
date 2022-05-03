@@ -35,8 +35,8 @@ fi
 if [ $(git branch --contains $SHA_COMMIT | grep -c "$TARGET_BRANCH") -ne 0 ]; then
   printf "\U274C $SHA_COMMIT is already on $TARGET_BRANCH branch!"
 else
-  git checkout -b $TARGET_BRANCH > /dev/null 2>&1
-  git rebase $SHA_COMMIT > /dev/null 2>&1
+  git checkout -b $TARGET_BRANCH
+  git rebase $SHA_COMMIT
   git push origin $TARGET_BRANCH
   printf "\U2705 $SHA_COMMIT was not on $TARGET_BRANCH branch. $TARGET_BRANCH branch has been rebased and pushed to the upstream repository. The deployment is on the way!"
 fi
