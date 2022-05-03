@@ -29,7 +29,7 @@ jobs:
     - run: echo "check-result = ${{ steps.checkUser.outputs.check-result }}"
     
     - name: Comment on PR if the user has no permission to deploy
-      if: steps.checkUser.outputs.check-result == 'false'
+      if: steps.checkUser.outputs.require-result == 'false'
       uses: actions/github-script@v3
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
             body: '\U2705 You don't have the rights to perform this operation'
           })
     - uses: actions/github-script@v3
-      if: steps.checkUser.outputs.check-result == 'true'
+      if: steps.checkUser.outputs.require-result == 'true'
       id: get-pr
       with:
         script: |
@@ -58,7 +58,7 @@ jobs:
             core.setFailed(`Request failed with error ${err}`)
           }
     - name: Rebase and deploy
-      if: steps.checkUser.outputs.check-result == 'true'
+      if: steps.checkUser.outputs.require-result == 'true'
       id: rebase
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -70,7 +70,7 @@ jobs:
         echo ::set-output name=output::$(./.github/scripts/rebase-and-deploy-to-env.sh)
     - name: Comment on PR
       uses: actions/github-script@v3
-      if: steps.checkUser.outputs.check-result == 'true'
+      if: steps.checkUser.outputs.require-result == 'true'
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
