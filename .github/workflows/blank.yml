@@ -24,9 +24,9 @@ jobs:
       with:
         require: 'write'
         check-contributor: true
-    - run: echo "user-permission = ${{ steps.check.outputs.user-permission }}"
-    - run: echo "require-result = ${{ steps.check.outputs.require-result }}"
-    - run: echo "check-result = ${{ steps.check.outputs.check-result }}"
+    - run: echo "user-permission = ${{ steps.checkUser.outputs.user-permission }}"
+    - run: echo "require-result = ${{ steps.checkUser.outputs.require-result }}"
+    - run: echo "check-result = ${{ steps.checkUser.outputs.check-result }}"
     
     - name: Comment on PR if the user has no permission to deploy
       if: steps.checkUser.outputs.check-result == 'false'
