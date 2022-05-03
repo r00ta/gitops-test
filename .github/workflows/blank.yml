@@ -20,12 +20,13 @@ jobs:
       uses: actions/checkout@v2
     - name: Check User Permission
       uses: actions-cool/check-user-permission@v2.0.1
+      id: checkuser
       with:
         username: ${{ github.actor }}
         require: write
     - name: Comment on PR if the user has no permission to deploy
       uses: actions/github-script@v3
-      if: steps.checkUser.outputs.check-result == 'false'
+      if: steps.checkuser.outputs.check-result == 'false'
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
