@@ -13,7 +13,7 @@ if ! grep -q "$TARGET_BRANCH" <<< "${allowed_branch_values[@]}"; then
 fi
 
 UPSTREAM_REPO_LOCATION=/tmp/upstream
-git clone https://$AUTHOR:$GITHUB_TOKEN@github.com/5733d9e2be6485d52ffa08870cabdee0/sandbox.git $UPSTREAM_REPO_LOCATION > /dev/null 2>&1
+git clone https://$AUTHOR:$GITHUB_TOKEN@github.com/r00ta/gitops-test.git $UPSTREAM_REPO_LOCATION > /dev/null 2>&1
 cd $UPSTREAM_REPO_LOCATION
 
 # If the deployment targets `stable`, then the feature must be on dev first.
@@ -30,7 +30,7 @@ if [ $(git branch --contains $SHA_COMMIT | grep -c "$TARGET_BRANCH") -ne 0 ]; th
 else
   git checkout -b $TARGET_BRANCH > /dev/null 2>&1
   git rebase $SHA_COMMIT > /dev/null 2>&1
-  # git push origin $TARGET_BRANCH &> /dev/null
+  git push origin $TARGET_BRANCH &> /dev/null
   printf "\U2705 $SHA_COMMIT was not on $TARGET_BRANCH branch. $TARGET_BRANCH branch has been rebased and pushed to the upstream repository. The deployment is on the way!"
 fi
 
