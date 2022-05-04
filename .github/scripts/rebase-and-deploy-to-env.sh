@@ -42,3 +42,4 @@ else
 fi
 
 rm -rf $UPSTREAM_REPO_LOCATION
+
